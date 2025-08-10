@@ -42,17 +42,19 @@ All colors MUST be HSL.
     --input: 204 20% 88%;
     --ring: 204 94% 42%;
 
-    /* Game-specific colors */
-    --game-primary: 204 94% 42%;
-    --game-secondary: 174 100% 80%;
-    --game-success: 142 76% 36%;
-    --game-danger: 0 84% 60%;
-    --game-calm: 200 100% 85%;
+    /* Game-specific colors - Sitaare Zameen Par theme */
+    --game-primary: 45 100% 55%; /* Warm golden yellow like movie poster */
+    --game-secondary: 25 95% 65%; /* Bright orange-yellow */
+    --game-success: 120 60% 50%; /* Gentle green for success */
+    --game-danger: 15 85% 60%; /* Warm red-orange */
+    --game-calm: 35 100% 85%; /* Light warm cream */
+    --game-aamir: 25 80% 45%; /* Earthy orange for Aamir's character */
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(204 94% 42%), hsl(174 100% 60%));
-    --gradient-calm: linear-gradient(180deg, hsl(204 100% 97%), hsl(200 100% 90%));
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(174 100% 50%));
+    /* Gradients - Movie poster inspired */
+    --gradient-primary: linear-gradient(135deg, hsl(45 100% 55%), hsl(25 95% 65%));
+    --gradient-calm: linear-gradient(180deg, hsl(45 100% 97%), hsl(35 100% 90%));
+    --gradient-success: linear-gradient(135deg, hsl(120 60% 50%), hsl(45 80% 60%));
+    --gradient-aamir: linear-gradient(135deg, hsl(25 80% 45%), hsl(45 85% 55%));
     
     /* Shadows */
     --shadow-gentle: 0 4px 20px hsl(204 94% 42% / 0.1);

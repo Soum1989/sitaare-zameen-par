@@ -65,7 +65,8 @@ export default {
 					secondary: 'hsl(var(--game-secondary))',
 					success: 'hsl(var(--game-success))',
 					danger: 'hsl(var(--game-danger))',
-					calm: 'hsl(var(--game-calm))'
+					calm: 'hsl(var(--game-calm))',
+					aamir: 'hsl(var(--game-aamir))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -88,7 +89,8 @@ export default {
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
 				'gradient-calm': 'var(--gradient-calm)',
-				'gradient-success': 'var(--gradient-success)'
+				'gradient-success': 'var(--gradient-success)',
+				'gradient-aamir': 'var(--gradient-aamir)'
 			},
 			boxShadow: {
 				'gentle': 'var(--shadow-gentle)',

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Congratulations } from "@/components/ui/congratulations";
 import { MemoryGame } from "@/components/games/MemoryGame";
 import { ColorPatternGame } from "@/components/games/ColorPatternGame";
 import { MathGame } from "@/components/games/MathGame";
 import { WordPictureGame } from "@/components/games/WordPictureGame";
-import { Brain, Palette, Calculator, BookOpen, Star, Heart } from "lucide-react";
+import { Brain, Palette, Calculator, BookOpen, Star, Heart, Sparkles } from "lucide-react";
 
 type GameType = "menu" | "memory" | "color" | "math" | "word";
 
@@ -13,6 +14,12 @@ const Index = () => {
   const [currentGame, setCurrentGame] = useState<GameType>("menu");
   const [playerName, setPlayerName] = useState("");
   const [score, setScore] = useState(0);
+  const [showCongratulations, setShowCongratulations] = useState(false);
+
+  const handleScore = (points: number) => {
+    setScore(score + points);
+    setShowCongratulations(true);
+  };
 
   const games = [
     {
@@ -48,13 +55,13 @@ const Index = () => {
   const renderGame = () => {
     switch (currentGame) {
       case "memory":
-        return <MemoryGame onBack={() => setCurrentGame("menu")} onScore={(points) => setScore(score + points)} />;
+        return <MemoryGame onBack={() => setCurrentGame("menu")} onScore={handleScore} />;
       case "color":
-        return <ColorPatternGame onBack={() => setCurrentGame("menu")} onScore={(points) => setScore(score + points)} />;
+        return <ColorPatternGame onBack={() => setCurrentGame("menu")} onScore={handleScore} />;
       case "math":
-        return <MathGame onBack={() => setCurrentGame("menu")} onScore={(points) => setScore(score + points)} />;
+        return <MathGame onBack={() => setCurrentGame("menu")} onScore={handleScore} />;
       case "word":
-        return <WordPictureGame onBack={() => setCurrentGame("menu")} onScore={(points) => setScore(score + points)} />;
+        return <WordPictureGame onBack={() => setCurrentGame("menu")} onScore={handleScore} />;
       default:
         return (
           <div className="min-h-screen bg-gradient-calm p-4">
@@ -62,19 +69,24 @@ const Index = () => {
               {/* Header */}
               <div className="text-center mb-8">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <Heart className="w-12 h-12 text-game-danger" />
-                  <h1 className="text-game-xl text-game-primary">Brain Games</h1>
-                  <Heart className="w-12 h-12 text-game-danger" />
+                  <Star className="w-12 h-12 text-game-primary animate-pulse" />
+                  <h1 className="text-game-xl text-game-primary">Sitaare Zameen Par</h1>
+                  <Star className="w-12 h-12 text-game-primary animate-pulse" />
                 </div>
-                <p className="text-game-lg text-muted-foreground mb-4">
-                  Fun and engaging games to exercise your mind
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <div className="text-2xl">👨‍🏫</div>
+                  <p className="text-game-lg text-game-aamir font-semibold">हर बच्चा अनोखा है</p>
+                  <div className="text-2xl">⭐</div>
+                </div>
+                <p className="text-game-md text-muted-foreground mb-4">
+                  Therapeutic games inspired by every child's unique potential
                 </p>
                 
                 {/* Score Display */}
-                <Card className="inline-block bg-gradient-success text-white shadow-card">
+                <Card className="inline-block bg-gradient-aamir text-white shadow-card">
                   <CardContent className="flex items-center gap-2 p-4">
-                    <Star className="w-6 h-6" />
-                    <span className="text-game-md font-bold">Score: {score}</span>
+                    <Sparkles className="w-6 h-6" />
+                    <span className="text-game-md font-bold">आपका स्कोर: {score}</span>
                   </CardContent>
                 </Card>
               </div>
@@ -134,7 +146,16 @@ const Index = () => {
     }
   };
 
-  return renderGame();
+  return (
+    <>
+      {renderGame()}
+      <Congratulations 
+        isVisible={showCongratulations}
+        onClose={() => setShowCongratulations(false)}
+        score={score}
+      />
+    </>
+  );
 };
 
 export default Index;
