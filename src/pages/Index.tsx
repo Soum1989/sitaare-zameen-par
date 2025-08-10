@@ -17,7 +17,7 @@ const Index = () => {
   const [showCongratulations, setShowCongratulations] = useState(false);
 
   const handleScore = (points: number) => {
-    setScore(score + points);
+    setScore(prev => prev + points);
     setShowCongratulations(true);
   };
 

@@ -39,8 +39,12 @@ export const Congratulations = ({ isVisible, onClose, score }: CongratulationsPr
         <CardContent className="p-8 text-center space-y-6">
           {/* Aamir Khan Character Representation */}
           <div className="relative">
-            <div className="w-24 h-24 bg-gradient-success rounded-full mx-auto flex items-center justify-center mb-4 animate-bounce">
-              <div className="text-4xl">👨‍🏫</div>
+            <div className="w-32 h-32 rounded-full mx-auto mb-4 animate-bounce overflow-hidden border-4 border-game-secondary">
+              <img 
+                src="/lovable-uploads/942e85f8-018c-4676-814b-2833b4bcc42e.png" 
+                alt="Aamir Khan congratulating"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="absolute -top-2 -right-2 animate-pulse">
               <Sparkles className="w-8 h-8 text-game-secondary" />
