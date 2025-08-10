@@ -76,7 +76,6 @@ export const MathGame = ({ onBack, onScore }: MathGameProps) => {
     if (correct) {
       const points = 5;
       onScore(points);
-      setScore(prev => prev + points);
       toast({
         title: "Correct! 🎉",
         description: `Great job! +${points} points`,

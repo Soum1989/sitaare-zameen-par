@@ -78,7 +78,6 @@ export const WordPictureGame = ({ onBack, onScore }: WordPictureGameProps) => {
     if (correct) {
       const points = 8;
       onScore(points);
-      setScore(prev => prev + points);
       toast({
         title: "Perfect! 🌟",
         description: `Great match! +${points} points`,

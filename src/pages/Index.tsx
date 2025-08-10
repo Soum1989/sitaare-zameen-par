@@ -17,8 +17,16 @@ const Index = () => {
   const [showCongratulations, setShowCongratulations] = useState(false);
 
   const handleScore = (points: number) => {
-    setScore(prev => prev + points);
+    setScore(prev => {
+      const newScore = prev + points;
+      return Math.min(newScore, 250); // Cap at 250 points
+    });
     setShowCongratulations(true);
+    
+    // Auto-close congratulations after 3 seconds
+    setTimeout(() => {
+      setShowCongratulations(false);
+    }, 3000);
   };
 
   const games = [
