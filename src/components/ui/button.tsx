@@ -18,12 +18,18 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        game: "bg-gradient-primary text-white hover:shadow-gentle transform hover:scale-105 transition-bounce text-game-lg font-bold py-4 px-8 rounded-xl",
+        gameSecondary: "bg-game-secondary text-foreground hover:bg-game-secondary/80 transition-gentle text-game-md font-semibold py-3 px-6 rounded-lg",
+        gameSuccess: "bg-gradient-success text-white hover:shadow-card transform hover:scale-105 transition-bounce text-game-md font-bold py-3 px-6 rounded-lg",
+        gameCard: "bg-card hover:bg-game-calm transition-gentle shadow-gentle hover:shadow-card transform hover:scale-105 p-6 rounded-2xl min-h-[120px] text-center",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
+        xl: "h-16 rounded-xl px-10 text-game-lg",
         icon: "h-10 w-10",
+        gameIcon: "h-16 w-16 rounded-xl",
       },
     },
     defaultVariants: {
