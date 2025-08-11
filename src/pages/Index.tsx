@@ -14,19 +14,39 @@ const Index = () => {
   const [currentGame, setCurrentGame] = useState<GameType>("menu");
   const [playerName, setPlayerName] = useState("");
   const [score, setScore] = useState(0);
+  const [gameScore, setGameScore] = useState(0);
   const [showCongratulations, setShowCongratulations] = useState(false);
+  const [isAdvancedMode, setIsAdvancedMode] = useState(false);
 
   const handleScore = (points: number) => {
-    setScore(prev => {
-      const newScore = prev + points;
-      return Math.min(newScore, 250); // Cap at 250 points
+    setGameScore(prev => {
+      const newGameScore = prev + points;
+      return Math.min(newGameScore, 250); // Cap each game at 250 points
     });
+    
+    setScore(prev => {
+      const newTotalScore = prev + points;
+      // Check if player reaches 10000 points threshold
+      if (newTotalScore >= 10000 && !isAdvancedMode) {
+        setIsAdvancedMode(true);
+        setTimeout(() => {
+          alert("🎉 Congratulations! You've reached 10000 points! Games are now more challenging and rewarding!");
+        }, 100);
+      }
+      return newTotalScore;
+    });
+    
     setShowCongratulations(true);
     
     // Auto-close congratulations after 3 seconds
     setTimeout(() => {
       setShowCongratulations(false);
     }, 3000);
+  };
+
+  const handleGameStart = (gameType: GameType) => {
+    setGameScore(0); // Reset game score when starting new game
+    setCurrentGame(gameType);
   };
 
   const games = [
@@ -61,15 +81,22 @@ const Index = () => {
   ];
 
   const renderGame = () => {
+    const gameProps = {
+      onBack: () => setCurrentGame("menu"),
+      onScore: handleScore,
+      isAdvancedMode,
+      gameScore
+    };
+
     switch (currentGame) {
       case "memory":
-        return <MemoryGame onBack={() => setCurrentGame("menu")} onScore={handleScore} />;
+        return <MemoryGame {...gameProps} />;
       case "color":
-        return <ColorPatternGame onBack={() => setCurrentGame("menu")} onScore={handleScore} />;
+        return <ColorPatternGame {...gameProps} />;
       case "math":
-        return <MathGame onBack={() => setCurrentGame("menu")} onScore={handleScore} />;
+        return <MathGame {...gameProps} />;
       case "word":
-        return <WordPictureGame onBack={() => setCurrentGame("menu")} onScore={handleScore} />;
+        return <WordPictureGame {...gameProps} />;
       default:
         return (
           <div className="min-h-screen bg-gradient-calm p-4">
@@ -91,12 +118,22 @@ const Index = () => {
                 </p>
                 
                 {/* Score Display */}
-                <Card className="inline-block bg-gradient-aamir text-white shadow-card">
-                  <CardContent className="flex items-center gap-2 p-4">
-                    <Sparkles className="w-6 h-6" />
-                    <span className="text-game-md font-bold">आपका स्कोर: {score}</span>
-                  </CardContent>
-                </Card>
+                <div className="flex gap-4 justify-center">
+                  <Card className="bg-gradient-aamir text-white shadow-card">
+                    <CardContent className="flex items-center gap-2 p-4">
+                      <Sparkles className="w-6 h-6" />
+                      <span className="text-game-md font-bold">कुल स्कोर: {score}</span>
+                    </CardContent>
+                  </Card>
+                  {isAdvancedMode && (
+                    <Card className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-card animate-pulse">
+                      <CardContent className="flex items-center gap-2 p-4">
+                        <Star className="w-6 h-6" />
+                        <span className="text-game-md font-bold">Advanced Mode!</span>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
               </div>
 
               {/* Game Selection Grid */}
@@ -107,7 +144,7 @@ const Index = () => {
                     <Button
                       key={game.id}
                       variant="gameCard"
-                      onClick={() => setCurrentGame(game.id)}
+                      onClick={() => handleGameStart(game.id)}
                       className="h-auto flex-col gap-4"
                     >
                       <IconComponent className={`w-12 h-12 ${game.color}`} />

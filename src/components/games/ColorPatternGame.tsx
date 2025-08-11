@@ -7,6 +7,8 @@ import { useToast } from "@/hooks/use-toast";
 interface ColorPatternGameProps {
   onBack: () => void;
   onScore: (points: number) => void;
+  isAdvancedMode?: boolean;
+  gameScore?: number;
 }
 
 const colors = [
@@ -16,7 +18,7 @@ const colors = [
   { name: "Yellow", class: "bg-yellow-500", value: "yellow" },
 ];
 
-export const ColorPatternGame = ({ onBack, onScore }: ColorPatternGameProps) => {
+export const ColorPatternGame = ({ onBack, onScore, isAdvancedMode = false, gameScore = 0 }: ColorPatternGameProps) => {
   const { toast } = useToast();
   const [sequence, setSequence] = useState<string[]>([]);
   const [userSequence, setUserSequence] = useState<string[]>([]);
@@ -33,8 +35,14 @@ export const ColorPatternGame = ({ onBack, onScore }: ColorPatternGameProps) => 
     return newSequence;
   };
 
+  const getSequenceLength = () => {
+    return isAdvancedMode ? level + 3 : level + 2;
+  };
+
   const startNewLevel = () => {
-    const newSequence = generateSequence(level + 2);
+    if (gameScore >= 250) return; // Don't start new level if game score is maxed
+    
+    const newSequence = generateSequence(getSequenceLength());
     setSequence(newSequence);
     setUserSequence([]);
     setCurrentStep(0);
@@ -83,16 +91,18 @@ export const ColorPatternGame = ({ onBack, onScore }: ColorPatternGameProps) => 
     // Check if sequence is complete
     if (newUserSequence.length === sequence.length) {
       // Level completed!
-      const points = level * 5;
-      onScore(points);
-      setLevel(prev => prev + 1);
-      toast({
-        title: "Excellent! 🌟",
-        description: `Level ${level} completed! +${points} points`,
-      });
-      setTimeout(() => {
-        startNewLevel();
-      }, 2000);
+      const points = (isAdvancedMode ? level * 8 : level * 5);
+      if (gameScore < 250) {
+        onScore(points);
+        setLevel(prev => prev + 1);
+        toast({
+          title: "Excellent! 🌟",
+          description: `Level ${level} completed! +${points} points`,
+        });
+        setTimeout(() => {
+          startNewLevel();
+        }, 2000);
+      }
     }
   };
 
@@ -144,6 +154,15 @@ export const ColorPatternGame = ({ onBack, onScore }: ColorPatternGameProps) => 
           </div>
         ) : (
           <>
+            {/* Game Score Display */}
+            <div className="text-center mb-4">
+              <Card className="inline-block bg-gradient-primary text-white shadow-card">
+                <CardContent className="flex items-center gap-2 p-3">
+                  <span className="text-game-md font-bold">Game Score: {gameScore}/250</span>
+                </CardContent>
+              </Card>
+            </div>
+
             {/* Stats */}
             <div className="flex justify-center gap-6 mb-8">
               <Card className="bg-card shadow-gentle">

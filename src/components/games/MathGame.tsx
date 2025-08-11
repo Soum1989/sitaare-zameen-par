@@ -7,6 +7,8 @@ import { useToast } from "@/hooks/use-toast";
 interface MathGameProps {
   onBack: () => void;
   onScore: (points: number) => void;
+  isAdvancedMode?: boolean;
+  gameScore?: number;
 }
 
 interface Question {
@@ -15,7 +17,7 @@ interface Question {
   options: number[];
 }
 
-export const MathGame = ({ onBack, onScore }: MathGameProps) => {
+export const MathGame = ({ onBack, onScore, isAdvancedMode = false, gameScore = 0 }: MathGameProps) => {
   const { toast } = useToast();
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [score, setScore] = useState(0);
@@ -24,18 +26,21 @@ export const MathGame = ({ onBack, onScore }: MathGameProps) => {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const generateQuestion = (): Question => {
+    if (gameScore >= 250) return currentQuestion || { question: "", answer: 0, options: [] }; // Don't generate new questions if game score is maxed
+    
     const operations = ['+', '-'];
     const operation = operations[Math.floor(Math.random() * operations.length)];
     
     let num1, num2, answer;
+    const maxNum = isAdvancedMode ? 20 : 10;
     
     if (operation === '+') {
-      num1 = Math.floor(Math.random() * 10) + 1;
-      num2 = Math.floor(Math.random() * 10) + 1;
+      num1 = Math.floor(Math.random() * maxNum) + 1;
+      num2 = Math.floor(Math.random() * maxNum) + 1;
       answer = num1 + num2;
     } else {
       // For subtraction, ensure positive result
-      num1 = Math.floor(Math.random() * 15) + 5;
+      num1 = Math.floor(Math.random() * (maxNum + 5)) + 5;
       num2 = Math.floor(Math.random() * num1) + 1;
       answer = num1 - num2;
     }
@@ -74,12 +79,14 @@ export const MathGame = ({ onBack, onScore }: MathGameProps) => {
     setIsCorrect(correct);
     
     if (correct) {
-      const points = 5;
-      onScore(points);
-      toast({
-        title: "Correct! 🎉",
-        description: `Great job! +${points} points`,
-      });
+      const points = isAdvancedMode ? 8 : 5;
+      if (gameScore < 250) {
+        onScore(points);
+        toast({
+          title: "Correct! 🎉",
+          description: `Great job! +${points} points`,
+        });
+      }
     } else {
       toast({
         title: "Try again! 😊",
@@ -116,6 +123,15 @@ export const MathGame = ({ onBack, onScore }: MathGameProps) => {
             <RefreshCw className="w-5 h-5" />
             New Game
           </Button>
+        </div>
+
+        {/* Game Score Display */}
+        <div className="text-center mb-4">
+          <Card className="inline-block bg-gradient-primary text-white shadow-card">
+            <CardContent className="flex items-center gap-2 p-3">
+              <span className="text-game-md font-bold">Game Score: {gameScore}/250</span>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Stats */}

@@ -7,6 +7,8 @@ import { useToast } from "@/hooks/use-toast";
 interface MemoryGameProps {
   onBack: () => void;
   onScore: (points: number) => void;
+  isAdvancedMode?: boolean;
+  gameScore?: number;
 }
 
 interface GameCard {
@@ -16,17 +18,22 @@ interface GameCard {
   isMatched: boolean;
 }
 
-export const MemoryGame = ({ onBack, onScore }: MemoryGameProps) => {
+export const MemoryGame = ({ onBack, onScore, isAdvancedMode = false, gameScore = 0 }: MemoryGameProps) => {
   const { toast } = useToast();
   const [cards, setCards] = useState<GameCard[]>([]);
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
   const [matches, setMatches] = useState(0);
 
-  const symbols = ["🌟", "🎈", "🌸", "🎯", "🌞", "🎨"];
+  const symbols = isAdvancedMode 
+    ? ["🌟", "🎈", "🌸", "🎯", "🌞", "🎨", "🚀", "🎪", "🌈", "🎭"]
+    : ["🌟", "🎈", "🌸", "🎯", "🌞", "🎨"];
 
   const initializeGame = () => {
-    const gameSymbols = symbols.slice(0, 6);
+    if (gameScore >= 250) return; // Don't reset if game score is maxed
+    
+    const pairCount = isAdvancedMode ? 8 : 6;
+    const gameSymbols = symbols.slice(0, pairCount);
     const allCards = [...gameSymbols, ...gameSymbols]
       .sort(() => Math.random() - 0.5)
       .map((symbol, index) => ({
@@ -62,11 +69,14 @@ export const MemoryGame = ({ onBack, onScore }: MemoryGameProps) => {
           ));
           setFlippedCards([]);
           setMatches(prev => prev + 1);
-          onScore(10);
-          toast({
-            title: "Great match! 🎉",
-            description: "You found a pair! +10 points",
-          });
+          const points = isAdvancedMode ? 15 : 10;
+          if (gameScore < 250) {
+            onScore(points);
+            toast({
+              title: "Great match! 🎉",
+              description: `You found a pair! +${points} points`,
+            });
+          }
         }, 1000);
       } else {
         // No match
@@ -84,15 +94,18 @@ export const MemoryGame = ({ onBack, onScore }: MemoryGameProps) => {
   }, [flippedCards, cards, onScore, toast]);
 
   useEffect(() => {
-    if (matches === 6) {
-      const bonus = Math.max(0, 50 - moves * 2);
-      onScore(bonus);
-      toast({
-        title: "Congratulations! 🏆",
-        description: `You completed the game in ${moves} moves! Bonus: +${bonus} points`,
-      });
+    const targetMatches = isAdvancedMode ? 8 : 6;
+    if (matches === targetMatches) {
+      const bonus = Math.max(0, (isAdvancedMode ? 75 : 50) - moves * 2);
+      if (gameScore < 250) {
+        onScore(bonus);
+        toast({
+          title: "Congratulations! 🏆",
+          description: `You completed the game in ${moves} moves! Bonus: +${bonus} points`,
+        });
+      }
     }
-  }, [matches, moves, onScore, toast]);
+  }, [matches, moves, onScore, toast, isAdvancedMode, gameScore]);
 
   const handleCardClick = (cardId: number) => {
     if (flippedCards.length >= 2) return;
@@ -131,13 +144,22 @@ export const MemoryGame = ({ onBack, onScore }: MemoryGameProps) => {
           <Card className="bg-card shadow-gentle">
             <CardContent className="flex items-center gap-2 p-4">
               <Star className="w-5 h-5 text-game-primary" />
-              <span className="text-game-md font-bold">Matches: {matches}/6</span>
+              <span className="text-game-md font-bold">Matches: {matches}/{isAdvancedMode ? 8 : 6}</span>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Game Score Display */}
+        <div className="text-center mb-4">
+          <Card className="inline-block bg-gradient-primary text-white shadow-card">
+            <CardContent className="flex items-center gap-2 p-3">
+              <span className="text-game-md font-bold">Game Score: {gameScore}/250</span>
             </CardContent>
           </Card>
         </div>
 
         {/* Game Grid */}
-        <div className="grid grid-cols-3 md:grid-cols-4 gap-4 max-w-lg mx-auto">
+        <div className={`grid gap-4 max-w-lg mx-auto ${isAdvancedMode ? 'grid-cols-4' : 'grid-cols-3 md:grid-cols-4'}`}>
           {cards.map((card) => (
             <Button
               key={card.id}

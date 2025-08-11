@@ -7,6 +7,8 @@ import { useToast } from "@/hooks/use-toast";
 interface WordPictureGameProps {
   onBack: () => void;
   onScore: (points: number) => void;
+  isAdvancedMode?: boolean;
+  gameScore?: number;
 }
 
 interface WordPicture {
@@ -28,7 +30,7 @@ const wordPictures: WordPicture[] = [
   { word: "BOOK", emoji: "📚", description: "Has pages to read" },
 ];
 
-export const WordPictureGame = ({ onBack, onScore }: WordPictureGameProps) => {
+export const WordPictureGame = ({ onBack, onScore, isAdvancedMode = false, gameScore = 0 }: WordPictureGameProps) => {
   const { toast } = useToast();
   const [currentItem, setCurrentItem] = useState<WordPicture | null>(null);
   const [wordOptions, setWordOptions] = useState<string[]>([]);
@@ -76,12 +78,14 @@ export const WordPictureGame = ({ onBack, onScore }: WordPictureGameProps) => {
     setIsCorrect(correct);
     
     if (correct) {
-      const points = 8;
-      onScore(points);
-      toast({
-        title: "Perfect! 🌟",
-        description: `Great match! +${points} points`,
-      });
+      const points = isAdvancedMode ? 12 : 8;
+      if (gameScore < 250) {
+        onScore(points);
+        toast({
+          title: "Perfect! 🌟",
+          description: `Great match! +${points} points`,
+        });
+      }
     } else {
       toast({
         title: "Try again! 😊",
@@ -118,6 +122,15 @@ export const WordPictureGame = ({ onBack, onScore }: WordPictureGameProps) => {
             <RefreshCw className="w-5 h-5" />
             New Game
           </Button>
+        </div>
+
+        {/* Game Score Display */}
+        <div className="text-center mb-4">
+          <Card className="inline-block bg-gradient-primary text-white shadow-card">
+            <CardContent className="flex items-center gap-2 p-3">
+              <span className="text-game-md font-bold">Game Score: {gameScore}/250</span>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Stats */}
