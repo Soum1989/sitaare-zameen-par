@@ -99,20 +99,35 @@ const Index = () => {
         return <WordPictureGame {...gameProps} />;
       default:
         return (
-          <div className="min-h-screen bg-gradient-calm p-4">
-            <div className="max-w-4xl mx-auto">
-              {/* Header */}
+          <div className="min-h-screen bg-gradient-calm">
+            {/* Hero Section with Movie Poster */}
+            <div className="relative overflow-hidden">
+              <div 
+                className="h-80 bg-cover bg-center bg-no-repeat relative"
+                style={{
+                  backgroundImage: "url('/lovable-uploads/269fd9c4-1cef-4375-93da-7eaa1ca10732.png')",
+                  backgroundPosition: "center 20%"  // Crop bottom by positioning
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90"></div>
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center">
+                  <div className="flex items-center justify-center gap-3 mb-2">
+                    <Star className="w-8 h-8 text-game-primary animate-pulse" />
+                    <h1 className="text-game-xl text-white drop-shadow-lg font-bold">Sitaare Zameen Par</h1>
+                    <Star className="w-8 h-8 text-game-primary animate-pulse" />
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="text-2xl">👨‍🏫</div>
+                    <p className="text-game-lg text-white drop-shadow-lg font-semibold">हर बच्चा अनोखा है</p>
+                    <div className="text-2xl">⭐</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="max-w-4xl mx-auto p-4">
+              {/* Subtitle */}
               <div className="text-center mb-8">
-                <div className="flex items-center justify-center gap-3 mb-4">
-                  <Star className="w-12 h-12 text-game-primary animate-pulse" />
-                  <h1 className="text-game-xl text-game-primary">Sitaare Zameen Par</h1>
-                  <Star className="w-12 h-12 text-game-primary animate-pulse" />
-                </div>
-                <div className="flex items-center justify-center gap-2 mb-2">
-                  <div className="text-2xl">👨‍🏫</div>
-                  <p className="text-game-lg text-game-aamir font-semibold">हर बच्चा अनोखा है</p>
-                  <div className="text-2xl">⭐</div>
-                </div>
                 <p className="text-game-md text-muted-foreground mb-4">
                   Therapeutic games inspired by every child's unique potential
                 </p>
