@@ -105,7 +105,7 @@ const Index = () => {
               <div 
                 className="h-80 bg-cover bg-center bg-no-repeat relative"
                 style={{
-                  backgroundImage: "url('/lovable-uploads/269fd9c4-1cef-4375-93da-7eaa1ca10732.png')",
+                  backgroundImage: "url('/lovable-uploads/sitaare-poster-enhanced.png')",
                   backgroundPosition: "center 20%"  // Crop bottom by positioning
                 }}
               >
