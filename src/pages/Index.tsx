@@ -106,7 +106,7 @@ const Index = () => {
                 className="h-80 bg-cover bg-center bg-no-repeat relative"
                 style={{
                   backgroundImage: "url('/lovable-uploads/sitaare-poster-enhanced.png')",
-                  backgroundPosition: "center 20%"  // Crop bottom by positioning
+                  backgroundPosition: "center 40%"  // Show more of the top, less cropping
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90"></div>
