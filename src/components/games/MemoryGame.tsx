@@ -30,8 +30,6 @@ export const MemoryGame = ({ onBack, onScore, isAdvancedMode = false, gameScore 
     : ["🌟", "🎈", "🌸", "🎯", "🌞", "🎨"];
 
   const initializeGame = () => {
-    if (gameScore >= 250) return; // Don't reset if game score is maxed
-    
     const pairCount = isAdvancedMode ? 8 : 6;
     const gameSymbols = symbols.slice(0, pairCount);
     const allCards = [...gameSymbols, ...gameSymbols]
