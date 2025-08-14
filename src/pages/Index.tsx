@@ -103,10 +103,10 @@ const Index = () => {
             {/* Hero Section with Movie Poster */}
             <div className="relative overflow-hidden">
               <div 
-                className="h-80 bg-cover bg-center bg-no-repeat relative"
+                className="h-64 bg-cover bg-center bg-no-repeat relative"
                 style={{
                   backgroundImage: "url('/lovable-uploads/sitaare-poster-enhanced.png')",
-                  backgroundPosition: "center 40%"  // Show more of the top, less cropping
+                  backgroundPosition: "center 30%"  // Better positioning to show face
                 }}
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/90"></div>
