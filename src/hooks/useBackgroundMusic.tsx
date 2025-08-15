@@ -34,17 +34,29 @@ export const useBackgroundMusic = ({
     const audio = audioRef.current;
 
     if (isPlaying) {
-      // Add event listener for user interaction
-      const playAudio = async () => {
+      // Add event listeners for user interaction to enable audio
+      const enableAudio = async () => {
         try {
           await audio.play();
+          // Remove listeners once audio is successfully playing
+          document.removeEventListener('click', enableAudio);
+          document.removeEventListener('touchstart', enableAudio);
+          document.removeEventListener('keydown', enableAudio);
         } catch (error) {
           console.log('Audio play failed:', error);
         }
       };
 
-      // Try to play immediately, or wait for user interaction
-      playAudio();
+      // Add multiple event listeners to catch first user interaction
+      document.addEventListener('click', enableAudio);
+      document.addEventListener('touchstart', enableAudio);
+      document.addEventListener('keydown', enableAudio);
+
+      return () => {
+        document.removeEventListener('click', enableAudio);
+        document.removeEventListener('touchstart', enableAudio);
+        document.removeEventListener('keydown', enableAudio);
+      };
     } else {
       audio.pause();
     }
