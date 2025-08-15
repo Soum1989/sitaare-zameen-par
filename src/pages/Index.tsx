@@ -6,6 +6,7 @@ import { MemoryGame } from "@/components/games/MemoryGame";
 import { ColorPatternGame } from "@/components/games/ColorPatternGame";
 import { MathGame } from "@/components/games/MathGame";
 import { WordPictureGame } from "@/components/games/WordPictureGame";
+import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
 import { Brain, Palette, Calculator, BookOpen, Star, Heart, Sparkles } from "lucide-react";
 
 type GameType = "menu" | "memory" | "color" | "math" | "word";
@@ -17,6 +18,13 @@ const Index = () => {
   const [gameScore, setGameScore] = useState(0);
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [isAdvancedMode, setIsAdvancedMode] = useState(false);
+
+  // Background music - plays only on menu
+  useBackgroundMusic({
+    isPlaying: currentGame === "menu",
+    volume: 0.2,
+    audioSrc: "/background-music.mp3" // Add your audio file here
+  });
 
   const handleScore = (points: number) => {
     setGameScore(prev => {
