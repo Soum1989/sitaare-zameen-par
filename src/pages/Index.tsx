@@ -7,11 +7,13 @@ import { ColorPatternGame } from "@/components/games/ColorPatternGame";
 import { MathGame } from "@/components/games/MathGame";
 import { WordPictureGame } from "@/components/games/WordPictureGame";
 import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
-import { Brain, Palette, Calculator, BookOpen, Star, Heart, Sparkles } from "lucide-react";
+import { Brain, Palette, Calculator, BookOpen, Star, Heart, Sparkles, FileText } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 type GameType = "menu" | "memory" | "color" | "math" | "word";
 
 const Index = () => {
+  const navigate = useNavigate();
   const [currentGame, setCurrentGame] = useState<GameType>("menu");
   const [playerName, setPlayerName] = useState("");
   const [score, setScore] = useState(0);
@@ -208,6 +210,18 @@ const Index = () => {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* PRD Link */}
+              <div className="text-center mt-8">
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate("/prd")}
+                  className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  View Product Documentation
+                </Button>
+              </div>
             </div>
           </div>
         );
