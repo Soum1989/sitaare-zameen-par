@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Congratulations } from "@/components/ui/congratulations";
@@ -7,7 +7,8 @@ import { ColorPatternGame } from "@/components/games/ColorPatternGame";
 import { MathGame } from "@/components/games/MathGame";
 import { WordPictureGame } from "@/components/games/WordPictureGame";
 import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
-import { Brain, Palette, Calculator, BookOpen, Star, Heart, Sparkles, FileText } from "lucide-react";
+import { useAnalytics } from "@/hooks/useAnalytics";
+import { Brain, Palette, Calculator, BookOpen, Star, Sparkles, FileText, BarChart3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 type GameType = "menu" | "memory" | "color" | "math" | "word";
@@ -21,11 +22,32 @@ const Index = () => {
   const [showCongratulations, setShowCongratulations] = useState(false);
   const [isAdvancedMode, setIsAdvancedMode] = useState(false);
 
+  const { currentSession, startSession, recordGamePlayed, updateScore, endSession } = useAnalytics();
+
+  // Start session on mount
+  useEffect(() => {
+    if (!currentSession) {
+      startSession("Guest Player");
+    }
+    
+    // End session when user leaves
+    return () => {
+      // This will be called on unmount
+    };
+  }, []);
+
+  // Update analytics when score changes
+  useEffect(() => {
+    if (currentSession) {
+      updateScore(score);
+    }
+  }, [score]);
+
   // Background music - plays only on menu
   useBackgroundMusic({
     isPlaying: currentGame === "menu",
     volume: 0.2,
-    audioSrc: "/background-music.mp3" // Add your audio file here
+    audioSrc: "/background-music.mp3"
   });
 
   const handleScore = (points: number) => {
@@ -57,6 +79,11 @@ const Index = () => {
   const handleGameStart = (gameType: GameType) => {
     setGameScore(0); // Reset game score when starting new game
     setCurrentGame(gameType);
+    
+    // Record game played for analytics
+    if (gameType !== "menu") {
+      recordGamePlayed(gameType);
+    }
   };
 
   const games = [
@@ -211,15 +238,23 @@ const Index = () => {
                 </CardContent>
               </Card>
 
-              {/* PRD Link */}
-              <div className="text-center mt-8">
+              {/* Navigation Links */}
+              <div className="flex gap-4 justify-center mt-8">
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate("/dashboard")}
+                  className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+                >
+                  <BarChart3 className="w-4 h-4 mr-2" />
+                  View Progress Dashboard
+                </Button>
                 <Button 
                   variant="outline" 
                   onClick={() => navigate("/prd")}
                   className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   <FileText className="w-4 h-4 mr-2" />
-                  View Product Documentation
+                  View Documentation
                 </Button>
               </div>
             </div>
