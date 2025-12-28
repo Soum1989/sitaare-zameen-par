@@ -21,6 +21,9 @@ import {
   BarChart3,
   Send,
   Trash2,
+  Download,
+  FileJson,
+  FileSpreadsheet,
 } from "lucide-react";
 
 const Dashboard = () => {
@@ -69,6 +72,80 @@ const Dashboard = () => {
     }
   };
 
+  const exportToJSON = () => {
+    const exportData = {
+      exportDate: new Date().toISOString(),
+      stats,
+      sessions,
+      feedback,
+    };
+    
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `sitaare-analytics-${new Date().toISOString().split("T")[0]}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Exported as JSON",
+      description: "Analytics data has been downloaded.",
+    });
+  };
+
+  const exportToCSV = () => {
+    // Sessions CSV
+    const sessionHeaders = ["ID", "Player Name", "Start Time", "End Time", "Total Score", "Engagement Time (s)", "Memory Games", "Color Games", "Math Games", "Word Games"];
+    const sessionRows = sessions.map(s => [
+      s.id,
+      s.playerName,
+      new Date(s.startTime).toLocaleString(),
+      s.endTime ? new Date(s.endTime).toLocaleString() : "Active",
+      s.totalScore,
+      s.engagementTime,
+      s.gamesPlayed.memory,
+      s.gamesPlayed.color,
+      s.gamesPlayed.math,
+      s.gamesPlayed.word,
+    ]);
+    
+    const sessionsCSV = [sessionHeaders, ...sessionRows].map(row => row.join(",")).join("\n");
+    
+    // Feedback CSV
+    const feedbackHeaders = ["ID", "Player Name", "Rating", "Comment", "Date", "Game Type"];
+    const feedbackRows = feedback.map(f => [
+      f.id,
+      `"${f.playerName}"`,
+      f.rating,
+      `"${f.comment.replace(/"/g, '""')}"`,
+      new Date(f.timestamp).toLocaleString(),
+      f.gameType || "General",
+    ]);
+    
+    const feedbackCSV = [feedbackHeaders, ...feedbackRows].map(row => row.join(",")).join("\n");
+    
+    // Combined CSV
+    const fullCSV = `SESSIONS\n${sessionsCSV}\n\nFEEDBACK\n${feedbackCSV}`;
+    
+    const blob = new Blob([fullCSV], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `sitaare-analytics-${new Date().toISOString().split("T")[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Exported as CSV",
+      description: "Analytics data has been downloaded.",
+    });
+  };
+
   const gameIcons = {
     memory: Brain,
     color: Palette,
@@ -98,14 +175,32 @@ const Dashboard = () => {
               Back to Games
             </Button>
             <h1 className="text-game-xl font-bold">📊 Progress Dashboard</h1>
-            <Button
-              variant="ghost"
-              onClick={handleClearData}
-              className="text-white hover:bg-white/20"
-            >
-              <Trash2 className="w-5 h-5 mr-2" />
-              Reset Data
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="ghost"
+                onClick={exportToJSON}
+                className="text-white hover:bg-white/20"
+              >
+                <FileJson className="w-5 h-5 mr-2" />
+                Export JSON
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={exportToCSV}
+                className="text-white hover:bg-white/20"
+              >
+                <FileSpreadsheet className="w-5 h-5 mr-2" />
+                Export CSV
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={handleClearData}
+                className="text-white hover:bg-white/20"
+              >
+                <Trash2 className="w-5 h-5 mr-2" />
+                Reset
+              </Button>
+            </div>
           </div>
         </div>
       </div>
