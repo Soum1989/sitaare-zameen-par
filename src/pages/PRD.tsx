@@ -4,85 +4,142 @@ import { Button } from "@/components/ui/button";
 import { 
   ArrowLeft, Target, Users, TrendingUp, Brain, Palette, Calculator, BookOpen, 
   Star, Heart, IndianRupee, School, Building, Handshake, Shield, Volume2, 
-  Smartphone, Lock, Calendar, CheckCircle, Rocket, Globe, Bot, UserCog
+  Smartphone, Lock, Calendar, CheckCircle, Rocket, Globe, Bot, UserCog,
+  Eye, AlertTriangle, Lightbulb, Gamepad2, Award, BarChart3, Clock, RefreshCw,
+  Tablet, Monitor, GraduationCap, Building2, Briefcase, MessageCircle, Zap
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const PRD = () => {
   const navigate = useNavigate();
 
-  const personas = [
-    { 
-      segment: "Primary User", 
-      persona: "The Child (Rohan)", 
-      insight: "Uses parent's phone; needs immediate positive feedback to stay engaged.",
-      jtbd: "Let me play without fear of 'wrong' buzzers, and help me pick up where I left off.",
-      emoji: "🧒"
+  const primaryUserNeeds = [
+    "Emotional safety",
+    "Predictable, repeatable interactions",
+    "Low-pressure retries",
+    "Positive reinforcement"
+  ];
+
+  const secondaryUsers = [
+    {
+      title: "Parents & Caregivers",
+      icon: Heart,
+      needs: ["Want therapy continuity at home", "Need reassurance, not diagnosis", "Prefer simple progress signals"]
     },
-    { 
-      segment: "Secondary User", 
-      persona: "The Parent (Guardian)", 
-      insight: "Owns the device; worries about 'screen addiction' vs. 'learning.'",
-      jtbd: "Let me switch modes so my usage doesn't mess up my child's progress reports.",
-      emoji: "👨‍👩‍👧"
+    {
+      title: "Special Educators / Therapists",
+      icon: GraduationCap,
+      needs: ["Need engagement, not compliance", "Want play to support therapy goals"]
     },
-    { 
-      segment: "B2B Buyer", 
-      persona: "School/CSR Head", 
-      insight: "Needs aggregate data to justify inclusion funding.",
-      jtbd: "Show me that 500 kids improved their focus by 20% this quarter.",
-      emoji: "🏢"
+    {
+      title: "Institutions",
+      icon: Building2,
+      needs: ["Schools (inclusive classrooms)", "NGOs", "CSR programs (outcome-driven)"]
     }
   ];
 
-  const games = [
-    { title: "Memory Match", icon: Brain, description: "No timers. Focus on visual recall.", color: "text-game-primary" },
-    { title: "Color Patterns", icon: Palette, description: "Sequence repetition. Focus on impulse control.", color: "text-game-secondary" },
-    { title: "Number Fun", icon: Calculator, description: "Quantity matching. Focus on basic numeracy.", color: "text-game-success" },
-    { title: "Word Pictures", icon: BookOpen, description: "Object naming. Focus on vocabulary.", color: "text-game-danger" }
+  const jtbdItems = [
+    {
+      user: "Child",
+      emoji: "🧒",
+      quote: "When I feel anxious in learning environments, I want activities that feel safe and playful, so I can try without fear and stay engaged."
+    },
+    {
+      user: "Parent",
+      emoji: "👨‍👩‍👧",
+      quote: "When my child struggles with attention, I want a non-stressful therapy tool that builds confidence, so progress doesn't feel forced."
+    },
+    {
+      user: "Educator / Therapist",
+      emoji: "👩‍🏫",
+      quote: "When children disengage, I want therapy-aligned play tools that maintain attention without triggering anxiety."
+    },
+    {
+      user: "CSR / Institution",
+      emoji: "🏢",
+      quote: "When funding inclusive education, I want measurable, non-clinical impact data to justify scale and outcomes."
+    }
   ];
 
-  const kpis = [
-    { category: "Usage", metric: "Avg. Session Time", target: "15–20 Mins", rationale: "Indicates 'Productive Screen Time' vs. Addiction." },
-    { category: "Therapy", metric: "Voluntary Retries", target: "> 2 per session", rationale: "Confirms 'Super Buddy' reduces fear of failure." },
-    { category: "Business", metric: "Paid Conversion", target: "5–8%", rationale: "Standard benchmark for freemium ed-tech/health apps." },
-    { category: "Tech", metric: "Crash Free Users", target: "99%", rationale: "Critical for low-end devices in Tier-2/3 cities." }
+  const corePrinciples = [
+    { title: "Therapy Before Teaching", icon: Heart, color: "text-game-primary" },
+    { title: "No Failure States", icon: Shield, color: "text-game-success" },
+    { title: "Emotional Safety First", icon: Star, color: "text-game-secondary" },
+    { title: "Progress Through Play", icon: Gamepad2, color: "text-primary" },
+    { title: "Measurable Without Medicalization", icon: BarChart3, color: "text-accent" }
+  ];
+
+  const games = [
+    { title: "Attention Focus", icon: Eye, description: "Builds sustained concentration", color: "text-game-primary" },
+    { title: "Memory Recall", icon: Brain, description: "Strengthens working memory", color: "text-game-secondary" },
+    { title: "Motor Coordination", icon: Gamepad2, description: "Develops fine motor skills", color: "text-game-success" },
+    { title: "Calm Repetition", icon: RefreshCw, description: "Creates soothing loops", color: "text-accent" }
   ];
 
   const roadmap = [
     {
       phase: "Phase 1",
-      title: "MVP & Pilot",
-      period: "Jan – Mar 2026",
-      region: "Delhi/NCR, Bihar, UP (Hindi Belt)",
-      features: [
-        "Web App (PWA) accessible on low-end smartphones",
-        "Super Buddy (Generic) implementation",
-        "Parent/Child Profile Switcher",
-        "4 Core Games"
-      ],
-      metric: "Validate 'Emotional Safety' (Voluntary Retries > 2)"
+      title: "MVP Validation & Early Pilots",
+      period: "Jan 2026 – Mar 2026",
+      goals: ["Validate emotional engagement", "Confirm therapy-first value"],
+      scope: ["4 games", "Parent-led home pilots", "Inclusive classroom pilots"],
+      color: "from-game-primary/20 to-game-primary/5"
     },
     {
       phase: "Phase 2",
-      title: "Data & Institutional Layer",
-      period: "Apr – Jun 2026",
-      features: [
-        "CSR Analytics Dashboard (Aggregate view)",
-        "Teacher 'Classroom View' (Monitor multiple profiles)"
-      ],
-      metric: "B2B Pilot Conversion (20% of pilots moving to paid contracts)"
+      title: "Measurement & Institutional Readiness",
+      period: "Apr 2026 – Jun 2026",
+      goals: ["Measurability", "CSR readiness"],
+      scope: ["Analytics dashboards", "Therapy hour tracking", "CSR reporting layer"],
+      color: "from-game-secondary/20 to-game-secondary/5"
     },
     {
       phase: "Phase 3",
-      title: "Scale & Localization",
-      period: "Jul – Dec 2026",
-      features: [
-        "Native Android App (for offline performance)",
-        "Regional Languages: Tamil, Bengali, Marathi, Telugu interfaces",
-        "Pan-India rollout based on Phase 1 learnings"
-      ]
+      title: "Scale via Partnerships",
+      period: "Jul 2026 – Dec 2026",
+      goals: ["Reach 150+ schools", "CSR district pilots"],
+      scope: ["NGO partnerships", "Rollout playbooks"],
+      color: "from-game-success/20 to-game-success/5"
     }
+  ];
+
+  const phaseMetrics = [
+    { phase: "Phase 1", metrics: ["Avg session time", "Voluntary retries", "Game completion"] },
+    { phase: "Phase 2", metrics: ["Engagement trends", "Skill improvement indicators", "Therapy hours delivered"] },
+    { phase: "Phase 3", metrics: ["Institutions onboarded", "Active learners", "Revenue from bundles"] }
+  ];
+
+  const postLaunchKPIs = {
+    product: [
+      { metric: "Avg session time", target: "15–20 min" },
+      { metric: "Completion rate", target: "85%+" },
+      { metric: "7-day retention", target: "60%+" },
+      { metric: "NPS", target: "50+" }
+    ],
+    therapy: [
+      { metric: "Attention span improvement", target: "Measurable" },
+      { metric: "Memory consistency", target: "Tracked" },
+      { metric: "Motor responsiveness", target: "Monitored" }
+    ],
+    business: [
+      { metric: "Paid conversion", target: "10–15%" },
+      { metric: "School pilots", target: "10–15" },
+      { metric: "CSR pilots", target: "3–5" }
+    ]
+  };
+
+  const risks = [
+    { risk: "Low adoption", mitigation: "Emotional safety-led onboarding" },
+    { risk: "Over-medicalization", mitigation: "Non-clinical language" },
+    { risk: "Measurement skepticism", mitigation: "Transparent metrics" },
+    { risk: "Scale complexity", mitigation: "Standardized rollout" }
+  ];
+
+  const successCriteria = [
+    { icon: Heart, text: "Children willingly return to play" },
+    { icon: Star, text: "Parents feel relief, not pressure" },
+    { icon: TrendingUp, text: "Schools see engagement improve" },
+    { icon: BarChart3, text: "CSR partners see measurable impact" }
   ];
 
   return (
@@ -113,469 +170,780 @@ const PRD = () => {
               Product Requirements Document
             </p>
             
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Therapy-first, game-based digital intervention platform
+            </p>
+            
             <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-              <span>Version: 2.1 (Execution Ready)</span>
+              <div className="flex items-center gap-2">
+                <Tablet className="w-4 h-4" />
+                <span>Tablet (Primary)</span>
+              </div>
               <span>•</span>
-              <span>Status: MVP / Pre-Development</span>
+              <div className="flex items-center gap-2">
+                <Smartphone className="w-4 h-4" />
+                <span>Mobile (Secondary)</span>
+              </div>
               <span>•</span>
-              <span>Updated: Dec 29, 2025</span>
-              <span>•</span>
-              <span>Region: North India (Hindi/English)</span>
+              <div className="flex items-center gap-2">
+                <Monitor className="w-4 h-4" />
+                <span>Web Dashboard</span>
+              </div>
             </div>
             
             <div className="flex flex-wrap justify-center gap-3 mt-6">
-              <Badge variant="secondary" className="text-sm px-4 py-2">Therapeutic Gaming</Badge>
-              <Badge variant="secondary" className="text-sm px-4 py-2">Therapy-First Platform</Badge>
-              <Badge variant="secondary" className="text-sm px-4 py-2">B2C + CSR Model</Badge>
-              <Badge variant="secondary" className="text-sm px-4 py-2">PWA</Badge>
+              <Badge variant="secondary" className="text-sm px-4 py-2">🎮 Therapy-First Gaming</Badge>
+              <Badge variant="secondary" className="text-sm px-4 py-2">🧠 Cognitive Development</Badge>
+              <Badge variant="secondary" className="text-sm px-4 py-2">💚 Emotional Safety</Badge>
+              <Badge variant="secondary" className="text-sm px-4 py-2">📊 Measurable Impact</Badge>
             </div>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12 space-y-16">
-        {/* Vision & Mission */}
+        
+        {/* 1. Product Vision */}
         <section>
           <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
             <Target className="w-8 h-8 text-primary" />
-            1. Product Vision & Mission
+            1. Product Vision
           </h2>
           
-          <div className="grid lg:grid-cols-3 gap-6">
+          <div className="grid lg:grid-cols-2 gap-8">
             <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
                   <Star className="w-5 h-5" />
-                  Vision
+                  Vision Statement
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  To build a world where neurodiverse children are defined by their <span className="font-semibold text-foreground">potential, not their deficits</span>.
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  To create <span className="font-semibold text-foreground">emotionally safe, play-based therapeutic experiences</span> that help neurodiverse children build attention, memory, and motor coordination—<span className="text-primary font-semibold">before academic learning begins</span>.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-to-br from-secondary/5 to-secondary/10 border-secondary/20">
+            <Card className="bg-gradient-to-br from-game-primary/10 to-game-secondary/10 border-game-primary/30">
               <CardHeader>
-                <CardTitle className="text-secondary flex items-center gap-2">
-                  <Heart className="w-5 h-5" />
-                  Mission
+                <CardTitle className="text-game-primary flex items-center gap-2">
+                  <Lightbulb className="w-5 h-5" />
+                  Core Belief
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  To create a therapeutic, game-based learning platform that builds cognitive skills and emotional confidence through <span className="font-semibold text-foreground">joyful, failure-free play</span>.
+              <CardContent className="space-y-4">
+                <p className="text-xl font-medium text-foreground italic">
+                  "Children do not disengage because they cannot learn."
                 </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-accent/5 to-accent/10 border-accent/20">
-              <CardHeader>
-                <CardTitle className="text-accent flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5" />
-                  Core Philosophy
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-lg font-semibold text-foreground italic">
-                  "Every attempt deserves celebration."
+                <p className="text-xl font-semibold text-game-primary">
+                  "They disengage because learning often feels unsafe."
                 </p>
-                <p className="text-muted-foreground mt-2">Effort {">"} Accuracy</p>
               </CardContent>
             </Card>
           </div>
         </section>
 
-        {/* Problem Statement */}
+        {/* 2. Problem Statement */}
         <section>
           <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
-            <Shield className="w-8 h-8 text-primary" />
+            <AlertTriangle className="w-8 h-8 text-primary" />
             2. Problem Statement
           </h2>
           
           <div className="grid lg:grid-cols-2 gap-8">
             <Card className="bg-destructive/5 border-destructive/20">
               <CardHeader>
-                <CardTitle className="text-destructive">The Problem</CardTitle>
+                <CardTitle className="text-destructive flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5" />
+                  Primary Problem
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground leading-relaxed">
-                  Traditional therapy is <span className="font-semibold">instruction-heavy and anxiety-inducing</span>. Neurodiverse children often share devices with parents, leading to mixed data and lack of focused, safe spaces for learning.
+                  Neurodiverse children (autism, ADHD, learning differences) struggle in <span className="font-semibold text-foreground">instruction-heavy, correction-driven environments</span> that increase anxiety and reduce attention.
                 </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/80 backdrop-blur shadow-gentle">
+              <CardHeader>
+                <CardTitle className="text-foreground flex items-center gap-2">
+                  <Eye className="w-5 h-5 text-primary" />
+                  Observed Consequences
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <span className="text-destructive">•</span>
+                    <span className="text-muted-foreground">Short attention spans due to cognitive overload</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-destructive">•</span>
+                    <span className="text-muted-foreground">Fear of making mistakes → avoidance behaviors</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-destructive">•</span>
+                    <span className="text-muted-foreground">Low therapy adherence at home</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-destructive">•</span>
+                    <span className="text-muted-foreground">Poor engagement in classrooms and therapy centers</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <Card className="mt-6 bg-secondary/5 border-secondary/20">
+            <CardHeader>
+              <CardTitle className="text-secondary flex items-center gap-2">
+                <BookOpen className="w-5 h-5" />
+                Evidence Sources
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-background/50 p-4 rounded-lg text-center">
+                  <GraduationCap className="w-8 h-8 mx-auto text-secondary mb-2" />
+                  <p className="text-sm text-muted-foreground">Interviews with special educators (10+ years experience)</p>
+                </div>
+                <div className="bg-background/50 p-4 rounded-lg text-center">
+                  <Building2 className="w-8 h-8 mx-auto text-secondary mb-2" />
+                  <p className="text-sm text-muted-foreground">Clinical insights from AIIMS-backed psychiatric practice</p>
+                </div>
+                <div className="bg-background/50 p-4 rounded-lg text-center">
+                  <MessageCircle className="w-8 h-8 mx-auto text-secondary mb-2" />
+                  <p className="text-sm text-muted-foreground">First-person feedback from neurodiverse students</p>
+                </div>
+                <div className="bg-background/50 p-4 rounded-lg text-center">
+                  <Globe className="w-8 h-8 mx-auto text-secondary mb-2" />
+                  <p className="text-sm text-muted-foreground">WHO and Indian pediatric therapy research</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* 3. Target Users & Personas */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Users className="w-8 h-8 text-primary" />
+            3. Target Users & Personas
+          </h2>
+          
+          {/* Primary User */}
+          <Card className="bg-gradient-to-br from-game-primary/10 to-game-secondary/10 border-game-primary/30 mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3 text-2xl">
+                <span className="text-4xl">🧒</span>
+                Primary User: Neurodiverse Children (6–14 years)
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3">Conditions Supported:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">Autism Spectrum (mild–moderate)</Badge>
+                    <Badge variant="outline">ADHD</Badge>
+                    <Badge variant="outline">Learning Differences</Badge>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3">Core Needs:</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {primaryUserNeeds.map((need, i) => (
+                      <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <CheckCircle className="w-4 h-4 text-game-success" />
+                        {need}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Secondary Users */}
+          <div className="grid md:grid-cols-3 gap-6">
+            {secondaryUsers.map((user, index) => {
+              const IconComponent = user.icon;
+              return (
+                <Card key={index} className="bg-card/80 backdrop-blur shadow-gentle">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <IconComponent className="w-5 h-5 text-primary" />
+                      {user.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2">
+                      {user.needs.map((need, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <span className="text-primary mt-1">•</span>
+                          {need}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* 4. Jobs To Be Done */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Briefcase className="w-8 h-8 text-primary" />
+            4. Jobs To Be Done (JTBD)
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {jtbdItems.map((item, index) => (
+              <Card key={index} className="bg-card/80 backdrop-blur shadow-gentle hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <span className="text-4xl">{item.emoji}</span>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2">{item.user}</h3>
+                      <p className="text-muted-foreground italic text-sm leading-relaxed">
+                        "{item.quote}"
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* 5. Solution Overview */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Lightbulb className="w-8 h-8 text-primary" />
+            5. Solution Overview
+          </h2>
+          
+          <div className="grid lg:grid-cols-2 gap-8">
+            <Card className="bg-game-success/10 border-game-success/30">
+              <CardHeader>
+                <CardTitle className="text-game-success flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5" />
+                  What Sitaare Zameen Par IS
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  A <span className="font-semibold text-foreground">therapy-first gaming platform</span> using play, repetition, and rewards to strengthen foundational cognitive skills.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-destructive/5 border-destructive/20">
+              <CardHeader>
+                <CardTitle className="text-destructive flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5" />
+                  What It Is NOT
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  <li className="flex items-center gap-2 text-muted-foreground">
+                    <span className="text-destructive">✗</span>
+                    Not an academic learning app
+                  </li>
+                  <li className="flex items-center gap-2 text-muted-foreground">
+                    <span className="text-destructive">✗</span>
+                    Not a diagnostic tool
+                  </li>
+                  <li className="flex items-center gap-2 text-muted-foreground">
+                    <span className="text-destructive">✗</span>
+                    Not a clinical replacement
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* 6. Core Product Principles */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Star className="w-8 h-8 text-primary" />
+            6. Core Product Principles
+          </h2>
+          
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {corePrinciples.map((principle, index) => {
+              const IconComponent = principle.icon;
+              return (
+                <Card key={index} className="bg-card/80 backdrop-blur shadow-gentle text-center p-6">
+                  <IconComponent className={`w-10 h-10 mx-auto ${principle.color} mb-3`} />
+                  <p className="font-semibold text-sm text-foreground">{principle.title}</p>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* 7. MVP Feature Set */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Rocket className="w-8 h-8 text-primary" />
+            7. MVP Feature Set (MoSCoW Framework)
+          </h2>
+          
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Must-Have */}
+            <Card className="bg-gradient-to-br from-game-success/10 to-game-success/5 border-game-success/30">
+              <CardHeader>
+                <CardTitle className="text-game-success flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5" />
+                  Must-Have (MVP)
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Four Therapeutic Games */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                    <Gamepad2 className="w-4 h-4" />
+                    1. Four Therapeutic Games
+                  </h4>
+                  <div className="grid grid-cols-2 gap-3">
+                    {games.map((game, i) => {
+                      const IconComponent = game.icon;
+                      return (
+                        <div key={i} className="bg-background/50 p-3 rounded-lg text-center">
+                          <IconComponent className={`w-6 h-6 mx-auto ${game.color} mb-2`} />
+                          <p className="text-sm font-medium">{game.title}</p>
+                          <p className="text-xs text-muted-foreground">{game.description}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2 italic">
+                    Requirement: Games must be short, repeatable, and pressure-free.
+                  </p>
+                </div>
+
+                {/* Adaptive Progression */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4" />
+                    2. Adaptive Progression
+                  </h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Difficulty adjusts based on engagement, not accuracy</li>
+                    <li>• No visible "levels failed"</li>
+                  </ul>
+                </div>
+
+                {/* Reward System */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                    <Award className="w-4 h-4" />
+                    3. Reward Feedback System
+                  </h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Visual encouragement</li>
+                    <li>• Friendly character-based praise</li>
+                  </ul>
+                </div>
+
+                {/* Performance Tracking */}
+                <div>
+                  <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                    <BarChart3 className="w-4 h-4" />
+                    4. Basic Performance Tracking
+                  </h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
+                    <li>• Session duration</li>
+                    <li>• Completion</li>
+                    <li>• Retry frequency</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Nice-to-Have */}
+            <Card className="bg-secondary/5 border-secondary/20">
+              <CardHeader>
+                <CardTitle className="text-secondary flex items-center gap-2">
+                  <Zap className="w-5 h-5" />
+                  Nice-to-Have (Post-MVP)
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-muted-foreground">
+                    <Globe className="w-5 h-5 text-secondary" />
+                    Multilingual UI
+                  </li>
+                  <li className="flex items-center gap-3 text-muted-foreground">
+                    <Smartphone className="w-5 h-5 text-secondary" />
+                    Offline play
+                  </li>
+                  <li className="flex items-center gap-3 text-muted-foreground">
+                    <BarChart3 className="w-5 h-5 text-secondary" />
+                    Advanced analytics
+                  </li>
+                  <li className="flex items-center gap-3 text-muted-foreground">
+                    <UserCog className="w-5 h-5 text-secondary" />
+                    Custom therapy plans
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* 8. User Experience Requirements */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Smartphone className="w-8 h-8 text-primary" />
+            8. User Experience Requirements
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="bg-game-primary/10 border-game-primary/30">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <span className="text-2xl">🧒</span>
+                  Child UX
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Large touch targets
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Minimal text
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Predictable flow
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Gentle audio cues
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-game-secondary/10 border-game-secondary/30">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <span className="text-2xl">👨‍👩‍👧</span>
+                  Parent UX
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Simple dashboard
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Non-clinical language
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Weekly summaries
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-accent/10 border-accent/30">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <span className="text-2xl">🏢</span>
+                  Institution UX
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Aggregate analytics
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    CSR-friendly reports
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4 text-game-success" />
+                    Downloadable summaries
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* 9. Product Roadmap */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Calendar className="w-8 h-8 text-primary" />
+            9. Product Roadmap
+          </h2>
+          
+          <div className="space-y-6">
+            {roadmap.map((phase, index) => (
+              <Card key={index} className={`bg-gradient-to-r ${phase.color} border-primary/20`}>
+                <CardContent className="p-6">
+                  <div className="grid lg:grid-cols-4 gap-6">
+                    <div>
+                      <Badge className="mb-2">{phase.phase}</Badge>
+                      <h3 className="text-xl font-bold text-foreground">{phase.title}</h3>
+                      <p className="text-sm text-muted-foreground flex items-center gap-2 mt-2">
+                        <Clock className="w-4 h-4" />
+                        {phase.period}
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-2">Goals</h4>
+                      <ul className="space-y-1">
+                        {phase.goals.map((goal, i) => (
+                          <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
+                            <Target className="w-3 h-3 text-primary" />
+                            {goal}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="lg:col-span-2">
+                      <h4 className="font-semibold text-foreground mb-2">Scope</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {phase.scope.map((item, i) => (
+                          <Badge key={i} variant="outline" className="text-xs">{item}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* 10. Key Metrics by Phase */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <BarChart3 className="w-8 h-8 text-primary" />
+            10. Key Metrics by Phase
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {phaseMetrics.map((phase, index) => (
+              <Card key={index} className="bg-card/80 backdrop-blur shadow-gentle">
+                <CardHeader>
+                  <CardTitle className="text-lg">{phase.phase}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2">
+                    {phase.metrics.map((metric, i) => (
+                      <li key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <BarChart3 className="w-4 h-4 text-primary" />
+                        {metric}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* 11. Post-Launch KPIs */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <TrendingUp className="w-8 h-8 text-primary" />
+            11. Post-Launch KPIs (First 3 Months)
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="bg-game-primary/10 border-game-primary/30">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Gamepad2 className="w-5 h-5" />
+                  Product KPIs
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {postLaunchKPIs.product.map((kpi, i) => (
+                    <div key={i} className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">{kpi.metric}</span>
+                      <Badge variant="outline">{kpi.target}</Badge>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
 
             <Card className="bg-game-success/10 border-game-success/30">
               <CardHeader>
-                <CardTitle className="text-game-success">The Opportunity</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  A <span className="font-semibold text-foreground">"Therapy-First" gaming platform</span> that turns screen time into structured, anxiety-free skill building, distinct from generic educational apps.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Target Audience & Personas */}
-        <section>
-          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
-            <Users className="w-8 h-8 text-primary" />
-            3. Target Audience & Personas
-          </h2>
-          
-          <div className="space-y-6">
-            {personas.map((p, index) => (
-              <Card key={index} className="bg-card/80 backdrop-blur shadow-gentle">
-                <CardContent className="p-6">
-                  <div className="grid lg:grid-cols-4 gap-6 items-center">
-                    <div className="text-center lg:text-left">
-                      <Badge variant="outline" className="mb-2">{p.segment}</Badge>
-                      <div className="flex items-center gap-2 justify-center lg:justify-start">
-                        <span className="text-3xl">{p.emoji}</span>
-                        <h3 className="text-xl font-bold">{p.persona}</h3>
-                      </div>
-                    </div>
-                    <div className="lg:col-span-2">
-                      <p className="text-sm text-muted-foreground mb-2"><span className="font-semibold text-foreground">Key Insight:</span> {p.insight}</p>
-                    </div>
-                    <div className="bg-primary/5 p-4 rounded-lg">
-                      <p className="text-sm font-medium text-primary">Job to be Done:</p>
-                      <p className="text-sm text-muted-foreground italic">"{p.jtbd}"</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Functional Requirements */}
-        <section>
-          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
-            <Rocket className="w-8 h-8 text-primary" />
-            4. Functional Requirements (The MVP)
-          </h2>
-          
-          <div className="space-y-8">
-            {/* Super Buddy */}
-            <Card className="bg-gradient-to-br from-game-primary/10 to-game-secondary/10 border-game-primary/30">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl">
-                  <Bot className="w-8 h-8 text-game-primary" />
-                  4.1 The "Super Buddy" Character
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="w-5 h-5" />
+                  Therapy Indicators
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <p className="text-muted-foreground">
-                  Instead of a licensed celebrity, the platform uses a proprietary mascot—a friendly, gender-neutral, animated character (e.g., a playful star or warm robot).
-                </p>
-                <div className="grid md:grid-cols-3 gap-4">
-                  <div className="bg-background/50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-primary mb-2">🎯 Guide</h4>
-                    <p className="text-sm text-muted-foreground">Explains games using voice-over (Hindi/English)</p>
-                  </div>
-                  <div className="bg-background/50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-secondary mb-2">🎉 Cheerleader</h4>
-                    <p className="text-sm text-muted-foreground">Appears visually to celebrate wins ("High Five" animation)</p>
-                  </div>
-                  <div className="bg-background/50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-accent mb-2">💚 Companion</h4>
-                    <p className="text-sm text-muted-foreground">Offers encouragement during failure ("Let's try again together!")</p>
-                  </div>
+              <CardContent>
+                <div className="space-y-3">
+                  {postLaunchKPIs.therapy.map((kpi, i) => (
+                    <div key={i} className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">{kpi.metric}</span>
+                      <Badge variant="outline">{kpi.target}</Badge>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Profile Switcher */}
-            <Card className="bg-card/80 backdrop-blur shadow-gentle">
+            <Card className="bg-secondary/10 border-secondary/30">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl">
-                  <UserCog className="w-6 h-6 text-primary" />
-                  4.2a Profile Switcher (Parent vs. Child Mode)
+                <CardTitle className="flex items-center gap-2">
+                  <IndianRupee className="w-5 h-5" />
+                  Business KPIs
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground mb-4">
-                  <span className="font-semibold">Rationale:</span> Since children share phones, we must separate data streams.
-                </p>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-primary/5 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Lock className="w-5 h-5 text-primary" />
-                      <h4 className="font-semibold">Parent Mode (PIN Protected)</h4>
+                <div className="space-y-3">
+                  {postLaunchKPIs.business.map((kpi, i) => (
+                    <div key={i} className="flex justify-between items-center text-sm">
+                      <span className="text-muted-foreground">{kpi.metric}</span>
+                      <Badge variant="outline">{kpi.target}</Badge>
                     </div>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• Access to dashboards & settings</li>
-                      <li>• Subscription management</li>
-                      <li>• Profile creation</li>
-                    </ul>
-                  </div>
-                  <div className="bg-secondary/5 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Smartphone className="w-5 h-5 text-secondary" />
-                      <h4 className="font-semibold">Child Mode (Kiosk Mode)</h4>
-                    </div>
-                    <ul className="text-sm text-muted-foreground space-y-1">
-                      <li>• Simplified UI (Big buttons, no text-heavy menus)</li>
-                      <li>• "Resume Play" feature (One-tap start)</li>
-                      <li>• Locked navigation (Prevents accidental exit)</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Game Suite */}
-            <Card className="bg-card/80 backdrop-blur shadow-gentle">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl">
-                  <Brain className="w-6 h-6 text-primary" />
-                  4.2b Therapeutic Game Suite (North India Launch)
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground mb-6">
-                  <span className="font-semibold">Language:</span> Interface in Hindi & English (Hinglish blend allowed)
-                </p>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {games.map((game, index) => {
-                    const IconComponent = game.icon;
-                    return (
-                      <div key={index} className="text-center p-4 rounded-lg bg-background/50">
-                        <IconComponent className={`w-10 h-10 mx-auto ${game.color} mb-3`} />
-                        <h4 className="font-semibold mb-1">{game.title}</h4>
-                        <p className="text-sm text-muted-foreground">{game.description}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Emotional Safety Engine */}
-            <Card className="bg-gradient-to-br from-game-success/10 to-accent/10 border-game-success/30">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-xl">
-                  <Shield className="w-6 h-6 text-game-success" />
-                  4.2c The "Emotional Safety" Engine
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="bg-background/50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-primary mb-2">🎚️ Adaptive Difficulty</h4>
-                    <p className="text-sm text-muted-foreground">
-                      If a child makes 2 consecutive errors, the game automatically simplifies (e.g., reduces grid from 3x3 to 2x2)
-                    </p>
-                  </div>
-                  <div className="bg-background/50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-secondary mb-2">🔇 No Negative Cues</h4>
-                    <p className="text-sm text-muted-foreground">
-                      Replace "Wrong Answer Buzzer" with a soft "Whoops" or neutral sound
-                    </p>
-                  </div>
-                  <div className="bg-background/50 p-4 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Volume2 className="w-4 h-4 text-accent" />
-                      <h4 className="font-semibold">Sensory Controls</h4>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Independent volume sliders for Music (often distracting) and Voice/SFX (instructional)
-                    </p>
-                  </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
           </div>
         </section>
 
-        {/* Business & Revenue Model */}
+        {/* 12. Business Model */}
         <section>
           <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
             <IndianRupee className="w-8 h-8 text-primary" />
-            5. Business & Revenue Model
+            12. Business Model
           </h2>
           
-          <div className="space-y-8">
-            {/* B2C Subscription */}
-            <Card className="bg-card/80 backdrop-blur shadow-gentle">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Smartphone className="w-6 h-6 text-primary" />
-                  Primary Revenue: B2C Subscription
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div className="bg-primary/5 p-6 rounded-lg text-center">
-                    <h3 className="text-3xl font-bold text-primary mb-2">₹499/month</h3>
-                    <p className="text-muted-foreground">Starter Plan</p>
-                  </div>
-                  <div className="bg-secondary/5 p-6 rounded-lg text-center">
-                    <h3 className="text-3xl font-bold text-secondary mb-2">₹999/month</h3>
-                    <p className="text-muted-foreground">Family Plan</p>
-                  </div>
-                </div>
-                <div className="bg-muted/20 p-4 rounded-lg">
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground">Basis:</span> Benchmarked against competitor therapy apps (CogniFit, Otsimo) and local therapy costs (often ₹500–1000 per session).
-                  </p>
-                  <p className="text-sm font-medium text-primary mt-2">
-                    Value Prop: "The cost of one therapy session for a whole month of practice."
-                  </p>
-                </div>
-              </CardContent>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="bg-card/80 backdrop-blur shadow-gentle text-center p-6">
+              <Heart className="w-12 h-12 mx-auto text-game-primary mb-4" />
+              <h3 className="font-bold text-lg mb-2">B2C</h3>
+              <p className="text-muted-foreground">Family subscriptions</p>
             </Card>
-
-            {/* B2B/CSR */}
-            <Card className="bg-gradient-to-br from-accent/5 to-secondary/5 border-accent/20">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Handshake className="w-6 h-6 text-accent" />
-                  Secondary Revenue: B2B/CSR Bundles
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="bg-background/50 p-6 rounded-lg text-center mb-6">
-                  <p className="text-muted-foreground mb-2">Unit: "City Bundle"</p>
-                  <p className="text-lg font-semibold">40 schools / ~2,000 students</p>
-                  <h3 className="text-4xl font-bold text-accent mt-4">₹1 Crore</h3>
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-muted-foreground">
-                    <span className="font-semibold text-foreground">Deliverable:</span> Software licenses + Quarterly Impact Reports + Teacher Training Tablets
-                  </p>
-                </div>
-              </CardContent>
+            <Card className="bg-card/80 backdrop-blur shadow-gentle text-center p-6">
+              <School className="w-12 h-12 mx-auto text-game-secondary mb-4" />
+              <h3 className="font-bold text-lg mb-2">B2B</h3>
+              <p className="text-muted-foreground">School licensing</p>
+            </Card>
+            <Card className="bg-card/80 backdrop-blur shadow-gentle text-center p-6">
+              <Building className="w-12 h-12 mx-auto text-game-success mb-4" />
+              <h3 className="font-bold text-lg mb-2">B2G / CSR</h3>
+              <p className="text-muted-foreground">District & city bundles</p>
             </Card>
           </div>
         </section>
 
-        {/* Product Roadmap */}
+        {/* 13. Risks & Mitigations */}
         <section>
           <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
-            <Calendar className="w-8 h-8 text-primary" />
-            6. Product Roadmap (2026)
+            <Shield className="w-8 h-8 text-primary" />
+            13. Risks & Mitigations
           </h2>
           
-          <div className="space-y-6">
-            {roadmap.map((phase, index) => (
-              <Card key={index} className={`bg-card/80 backdrop-blur shadow-gentle ${index === 0 ? 'border-primary/30' : ''}`}>
-                <CardHeader>
-                  <div className="flex items-center justify-between flex-wrap gap-4">
-                    <div className="flex items-center gap-3">
-                      <Badge variant={index === 0 ? "default" : "secondary"}>{phase.phase}</Badge>
-                      <CardTitle className="text-xl">{phase.title}</CardTitle>
-                    </div>
-                    <Badge variant="outline">{phase.period}</Badge>
-                  </div>
-                  {phase.region && (
-                    <p className="text-sm text-muted-foreground mt-2">
-                      <Globe className="w-4 h-4 inline mr-1" />
-                      Region: {phase.region}
-                    </p>
-                  )}
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-semibold mb-3">Features:</h4>
-                      <ul className="space-y-2">
-                        {phase.features.map((f, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <CheckCircle className="w-4 h-4 text-game-success mt-0.5 flex-shrink-0" />
-                            {f}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    {phase.metric && (
-                      <div className="bg-primary/5 p-4 rounded-lg">
-                        <h4 className="font-semibold mb-2 text-primary">Key Metric:</h4>
-                        <p className="text-sm text-muted-foreground">{phase.metric}</p>
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Success Metrics KPIs */}
-        <section>
-          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
-            <TrendingUp className="w-8 h-8 text-primary" />
-            7. Success Metrics (KPIs)
-          </h2>
-          
-          <Card className="bg-card/80 backdrop-blur shadow-gentle">
-            <CardContent className="p-6">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b border-border">
-                      <th className="text-left py-3 px-4 font-semibold">Category</th>
-                      <th className="text-left py-3 px-4 font-semibold">Metric</th>
-                      <th className="text-left py-3 px-4 font-semibold text-primary">Target</th>
-                      <th className="text-left py-3 px-4 font-semibold">Rationale</th>
+          <Card className="bg-card/80 backdrop-blur shadow-gentle overflow-hidden">
+            <CardContent className="p-0">
+              <table className="w-full">
+                <thead className="bg-primary/10">
+                  <tr>
+                    <th className="text-left p-4 font-semibold text-foreground">Risk</th>
+                    <th className="text-left p-4 font-semibold text-foreground">Mitigation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {risks.map((item, index) => (
+                    <tr key={index} className="border-t border-border/50">
+                      <td className="p-4 text-destructive font-medium">{item.risk}</td>
+                      <td className="p-4 text-muted-foreground">{item.mitigation}</td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {kpis.map((kpi, index) => (
-                      <tr key={index} className="hover:bg-muted/50">
-                        <td className="py-4 px-4">
-                          <Badge variant="outline">{kpi.category}</Badge>
-                        </td>
-                        <td className="py-4 px-4 font-medium">{kpi.metric}</td>
-                        <td className="py-4 px-4 font-bold text-primary">{kpi.target}</td>
-                        <td className="py-4 px-4 text-muted-foreground">{kpi.rationale}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                  ))}
+                </tbody>
+              </table>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* 14. Success Definition */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Award className="w-8 h-8 text-primary" />
+            14. Success Definition
+          </h2>
+          
+          <Card className="bg-gradient-to-br from-game-success/10 to-accent/10 border-game-success/30">
+            <CardHeader>
+              <CardTitle className="text-center text-xl">
+                Sitaare Zameen Par is successful when:
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {successCriteria.map((item, index) => {
+                  const IconComponent = item.icon;
+                  return (
+                    <div key={index} className="text-center p-4">
+                      <IconComponent className="w-10 h-10 mx-auto text-game-success mb-3" />
+                      <p className="text-muted-foreground">{item.text}</p>
+                    </div>
+                  );
+                })}
               </div>
             </CardContent>
           </Card>
         </section>
 
-        {/* Next Steps */}
-        <section className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
-          <h2 className="text-3xl font-bold text-center mb-8">8. Immediate Next Step</h2>
+        {/* 15. Long-Term Vision */}
+        <section>
+          <h2 className="text-3xl font-bold text-foreground mb-8 flex items-center gap-3">
+            <Globe className="w-8 h-8 text-primary" />
+            15. Long-Term Vision
+          </h2>
           
-          <Card className="bg-background/80 backdrop-blur max-w-3xl mx-auto">
-            <CardHeader className="text-center">
-              <Badge variant="default" className="mx-auto mb-2">Design Sprint (2 Weeks)</Badge>
-              <CardTitle>Priority Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-start gap-3 p-4 bg-primary/5 rounded-lg">
-                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">1</div>
-                <div>
-                  <h4 className="font-semibold">Sketch "Super Buddy"</h4>
-                  <p className="text-sm text-muted-foreground">Create 3 variations of the character (Robot vs. Animal vs. Star) and test with 5 kids for preference.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-3 p-4 bg-secondary/5 rounded-lg">
-                <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary font-bold">2</div>
-                <div>
-                  <h4 className="font-semibold">Wireframe the "Switch Profile" Flow</h4>
-                  <p className="text-sm text-muted-foreground">Design the Parent-to-Child handoff screen to ensure it is seamless but secure.</p>
-                </div>
-              </div>
+          <Card className="bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 border-primary/20">
+            <CardContent className="p-8 text-center">
+              <Star className="w-16 h-16 mx-auto text-game-primary mb-6" />
+              <p className="text-xl lg:text-2xl text-foreground font-medium leading-relaxed max-w-4xl mx-auto">
+                To become <span className="text-primary font-bold">India's leading therapy-first digital play platform</span>, embedded across homes, schools, NGOs, and public education systems.
+              </p>
             </CardContent>
           </Card>
         </section>
 
         {/* Footer */}
-        <div className="text-center pt-8 border-t border-border">
-          <p className="text-muted-foreground">
-            Sitaare Zameen Par • Version 2.1 • Building a world where every child shines ✨
+        <section className="text-center py-12 border-t border-border/50">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Star className="w-8 h-8 text-game-primary" />
+            <p className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Sitaare Zameen Par
+            </p>
+            <Star className="w-8 h-8 text-game-primary" />
+          </div>
+          <p className="text-muted-foreground italic">
+            "Every child is a star. Let them shine."
           </p>
-        </div>
+        </section>
       </div>
     </div>
   );
