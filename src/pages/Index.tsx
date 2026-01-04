@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Congratulations } from "@/components/ui/congratulations";
 import { MemoryGame } from "@/components/games/MemoryGame";
 import { ColorPatternGame } from "@/components/games/ColorPatternGame";
@@ -8,7 +9,7 @@ import { MathGame } from "@/components/games/MathGame";
 import { WordPictureGame } from "@/components/games/WordPictureGame";
 import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
 import { useAnalytics } from "@/hooks/useAnalytics";
-import { Brain, Palette, Calculator, BookOpen, Star, Sparkles, FileText, BarChart3 } from "lucide-react";
+import { Brain, Palette, Calculator, BookOpen, Star, Sparkles, FileText, BarChart3, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 type GameType = "menu" | "memory" | "color" | "math" | "word";
@@ -16,7 +17,10 @@ type GameType = "menu" | "memory" | "color" | "math" | "word";
 const Index = () => {
   const navigate = useNavigate();
   const [currentGame, setCurrentGame] = useState<GameType>("menu");
-  const [playerName, setPlayerName] = useState("");
+  const [playerName, setPlayerName] = useState(() => {
+    return localStorage.getItem("sitaare_player_name") || "";
+  });
+  const [nameInput, setNameInput] = useState("");
   const [score, setScore] = useState(0);
   const [gameScore, setGameScore] = useState(0);
   const [showCongratulations, setShowCongratulations] = useState(false);
@@ -24,12 +28,12 @@ const Index = () => {
 
   const { currentSession, startSession, recordGamePlayed, updateScore, endSession } = useAnalytics();
 
-  // Start session on mount
+  // Start session on mount if player name exists
   useEffect(() => {
-    if (!currentSession) {
-      startSession("Guest Player");
+    if (!currentSession && playerName) {
+      startSession(playerName);
     }
-  }, []);
+  }, [playerName]);
 
   // End session when user leaves the page
   useEffect(() => {
@@ -49,6 +53,25 @@ const Index = () => {
       updateScore(score);
     }
   }, [score]);
+
+  const handleSetPlayerName = () => {
+    const trimmedName = nameInput.trim().slice(0, 50); // Limit to 50 chars
+    if (trimmedName) {
+      setPlayerName(trimmedName);
+      localStorage.setItem("sitaare_player_name", trimmedName);
+      startSession(trimmedName);
+    }
+  };
+
+  const handleChangePlayer = () => {
+    endSession();
+    setPlayerName("");
+    setNameInput("");
+    setScore(0);
+    setGameScore(0);
+    setIsAdvancedMode(false);
+    localStorage.removeItem("sitaare_player_name");
+  };
 
   // Background music - plays only on menu
   useBackgroundMusic({
@@ -170,100 +193,150 @@ const Index = () => {
             </div>
 
             <div className="max-w-4xl mx-auto p-4">
-              {/* Subtitle */}
-              <div className="text-center mb-8">
-                <p className="text-game-md text-muted-foreground mb-4">
-                  Therapeutic games inspired by every child's unique potential
-                </p>
-                
-                {/* Score Display */}
-                <div className="flex gap-4 justify-center">
-                  <Card className="bg-gradient-aamir text-white shadow-card">
-                    <CardContent className="flex items-center gap-2 p-4">
-                      <Sparkles className="w-6 h-6" />
-                      <span className="text-game-md font-bold">कुल स्कोर: {score}</span>
-                    </CardContent>
-                  </Card>
-                  {isAdvancedMode && (
-                    <Card className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-card animate-pulse">
-                      <CardContent className="flex items-center gap-2 p-4">
-                        <Star className="w-6 h-6" />
-                        <span className="text-game-md font-bold">Advanced Mode!</span>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
-              </div>
-
-              {/* Game Selection Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                {games.map((game) => {
-                  const IconComponent = game.icon;
-                  return (
-                    <Button
-                      key={game.id}
-                      variant="gameCard"
-                      onClick={() => handleGameStart(game.id)}
-                      className="h-auto flex-col gap-4"
-                    >
-                      <IconComponent className={`w-12 h-12 ${game.color}`} />
-                      <div>
-                        <h3 className="text-game-lg font-bold mb-2">{game.title}</h3>
-                        <p className="text-muted-foreground text-sm">{game.description}</p>
-                      </div>
-                    </Button>
-                  );
-                })}
-              </div>
-
-              {/* Instructions */}
-              <Card className="bg-card/80 backdrop-blur shadow-gentle">
-                <CardHeader>
-                  <CardTitle className="text-game-lg text-center text-game-primary">
-                    How to Play
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
-                    <div className="space-y-2">
-                      <div className="text-2xl">👆</div>
-                      <p className="text-game-md">Tap to select games and answers</p>
+              {/* Player Name Section */}
+              {!playerName ? (
+                <Card className="mb-8 shadow-card bg-card/90 backdrop-blur">
+                  <CardHeader>
+                    <CardTitle className="text-game-lg text-center text-game-primary flex items-center justify-center gap-2">
+                      <User className="w-6 h-6" />
+                      What's Your Name?
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-center text-muted-foreground">
+                      Enter your name to start playing and track your progress!
+                    </p>
+                    <div className="flex gap-3 max-w-md mx-auto">
+                      <Input
+                        placeholder="Enter your name..."
+                        value={nameInput}
+                        onChange={(e) => setNameInput(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleSetPlayerName()}
+                        className="text-lg h-12"
+                        maxLength={50}
+                      />
+                      <Button 
+                        onClick={handleSetPlayerName}
+                        className="bg-gradient-primary text-white h-12 px-6"
+                        disabled={!nameInput.trim()}
+                      >
+                        Start! 🎮
+                      </Button>
                     </div>
-                    <div className="space-y-2">
-                      <div className="text-2xl">🎯</div>
-                      <p className="text-game-md">Complete challenges to earn points</p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <>
+                  {/* Welcome Message */}
+                  <div className="text-center mb-8">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <span className="text-2xl">👋</span>
+                      <h2 className="text-game-lg font-bold text-game-primary">
+                        Welcome, {playerName}!
+                      </h2>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={handleChangePlayer}
+                        className="text-muted-foreground hover:text-foreground"
+                      >
+                        (Change)
+                      </Button>
                     </div>
-                    <div className="space-y-2">
-                      <div className="text-2xl">🎉</div>
-                      <p className="text-game-md">Celebrate your progress!</p>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="text-2xl">💪</div>
-                      <p className="text-game-md">Take breaks when needed</p>
+                    <p className="text-game-md text-muted-foreground mb-4">
+                      Therapeutic games inspired by every child's unique potential
+                    </p>
+                    
+                    {/* Score Display */}
+                    <div className="flex gap-4 justify-center">
+                      <Card className="bg-gradient-aamir text-white shadow-card">
+                        <CardContent className="flex items-center gap-2 p-4">
+                          <Sparkles className="w-6 h-6" />
+                          <span className="text-game-md font-bold">कुल स्कोर: {score}</span>
+                        </CardContent>
+                      </Card>
+                      {isAdvancedMode && (
+                        <Card className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white shadow-card animate-pulse">
+                          <CardContent className="flex items-center gap-2 p-4">
+                            <Star className="w-6 h-6" />
+                            <span className="text-game-md font-bold">Advanced Mode!</span>
+                          </CardContent>
+                        </Card>
+                      )}
                     </div>
                   </div>
-                </CardContent>
-              </Card>
 
-              {/* Navigation Links */}
-              <div className="flex gap-4 justify-center mt-8">
-                <Button 
-                  variant="outline" 
-                  onClick={() => navigate("/dashboard")}
-                  className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
-                >
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  View Progress Dashboard
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={() => navigate("/prd")}
-                  className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
-                >
-                  <FileText className="w-4 h-4 mr-2" />
-                  View Documentation
-                </Button>
-              </div>
+                  {/* Game Selection Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    {games.map((game) => {
+                      const IconComponent = game.icon;
+                      return (
+                        <Button
+                          key={game.id}
+                          variant="gameCard"
+                          onClick={() => handleGameStart(game.id)}
+                          className="h-auto flex-col gap-4"
+                        >
+                          <IconComponent className={`w-12 h-12 ${game.color}`} />
+                          <div>
+                            <h3 className="text-game-lg font-bold mb-2">{game.title}</h3>
+                            <p className="text-muted-foreground text-sm">{game.description}</p>
+                          </div>
+                        </Button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Instructions */}
+                  <Card className="bg-card/80 backdrop-blur shadow-gentle">
+                    <CardHeader>
+                      <CardTitle className="text-game-lg text-center text-game-primary">
+                        How to Play
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
+                        <div className="space-y-2">
+                          <div className="text-2xl">👆</div>
+                          <p className="text-game-md">Tap to select games and answers</p>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="text-2xl">🎯</div>
+                          <p className="text-game-md">Complete challenges to earn points</p>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="text-2xl">🎉</div>
+                          <p className="text-game-md">Celebrate your progress!</p>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="text-2xl">💪</div>
+                          <p className="text-game-md">Take breaks when needed</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Navigation Links */}
+                  <div className="flex gap-4 justify-center mt-8">
+                    <Button 
+                      variant="outline" 
+                      onClick={() => navigate("/dashboard")}
+                      className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+                    >
+                      <BarChart3 className="w-4 h-4 mr-2" />
+                      View Progress Dashboard
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => navigate("/prd")}
+                      className="text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+                    >
+                      <FileText className="w-4 h-4 mr-2" />
+                      View Documentation
+                    </Button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         );
