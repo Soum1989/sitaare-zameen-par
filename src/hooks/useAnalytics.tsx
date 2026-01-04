@@ -158,12 +158,20 @@ export const useAnalytics = () => {
     return newFeedback;
   }, [feedback]);
 
-  // Get aggregated stats
+  // Get aggregated stats (includes current session if active)
   const getStats = useCallback((): GameStats => {
-    const uniquePlayers = new Set(sessions.map(s => s.playerName));
-    const totalEngagement = sessions.reduce((acc, s) => acc + s.engagementTime, 0);
+    // Include current session in calculations if it exists
+    const allSessions = currentSession 
+      ? [...sessions, { 
+          ...currentSession, 
+          engagementTime: Math.floor((Date.now() - currentSession.startTime) / 1000) 
+        }]
+      : sessions;
     
-    const gamePopularity = sessions.reduce(
+    const uniquePlayers = new Set(allSessions.map(s => s.playerName));
+    const totalEngagement = allSessions.reduce((acc, s) => acc + s.engagementTime, 0);
+    
+    const gamePopularity = allSessions.reduce(
       (acc, s) => ({
         memory: acc.memory + s.gamesPlayed.memory,
         color: acc.color + s.gamesPlayed.color,
@@ -173,7 +181,7 @@ export const useAnalytics = () => {
       { memory: 0, color: 0, math: 0, word: 0 }
     );
     
-    const highScores = sessions
+    const highScores = allSessions
       .map(s => ({
         playerName: s.playerName,
         score: s.totalScore,
@@ -183,14 +191,14 @@ export const useAnalytics = () => {
       .slice(0, 10);
 
     return {
-      totalSessions: sessions.length,
+      totalSessions: allSessions.length,
       totalUsers: uniquePlayers.size,
       totalEngagementTime: totalEngagement,
-      averageSessionTime: sessions.length > 0 ? totalEngagement / sessions.length : 0,
+      averageSessionTime: allSessions.length > 0 ? totalEngagement / allSessions.length : 0,
       gamePopularity,
       highScores,
     };
-  }, [sessions]);
+  }, [sessions, currentSession]);
 
   // Clear all data (for testing/reset)
   const clearAllData = useCallback(() => {
