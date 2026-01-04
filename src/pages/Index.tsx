@@ -29,12 +29,19 @@ const Index = () => {
     if (!currentSession) {
       startSession("Guest Player");
     }
-    
-    // End session when user leaves
-    return () => {
-      // This will be called on unmount
-    };
   }, []);
+
+  // End session when user leaves the page
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      endSession();
+    };
+    
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [endSession]);
 
   // Update analytics when score changes
   useEffect(() => {
